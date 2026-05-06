@@ -84,6 +84,11 @@
     </div>
   </main>
 
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
   <footer>
     <span>&copy; 2026 Alec Fellman</span>
     <div class="footer-links">
@@ -101,6 +106,15 @@
     navLinks.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => { hamburger.classList.remove('open'); navLinks.classList.remove('open'); }); });
     const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: 0.12 });
     document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+    document.querySelectorAll('.work-images img').forEach(img => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', () => { lightboxImg.src = img.src; lightbox.classList.add('open'); });
+    });
   </script>
 
 </body>
