@@ -109,6 +109,15 @@ nav {
 }
 .work-desc { font-size: 0.95rem; line-height: 1.75; color: var(--fg-light); }
 
+.work-images {
+  display: flex; gap: 8px; margin-top: 20px;
+}
+.work-images img {
+  height: 120px; width: auto; object-fit: cover;
+  transition: opacity 0.2s;
+}
+.work-images img:hover { opacity: 0.7; }
+
 /* LISTEN */
 .listen-project { margin-bottom: 80px; }
 .listen-project:last-child { margin-bottom: 0; }
