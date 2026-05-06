@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Field Recordings — Alec Fellman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Karla:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-name">Alec Fellman</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="about.html">About</a></li>
+      <li><a href="works.html">Works</a></li>
+      <li><a href="listen.html">Listen</a></li>
+      <li><a href="field.html" class="active">Field Recordings</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-content">
+    <p class="section-nav-title fade">Field Recordings</p>
+    <div class="track-list fade">
+      <div class="field-track" data-track="fr1" data-src="audio/20211023_17mins_beachgrass_processed.mp3">
+        <div>
+          <div class="field-track-title">20211023_17mins beachgrass</div>
+          <div class="field-track-meta"></div>
+        </div>
+        <button class="track-play" aria-label="Play"><svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg></button>
+      </div>
+      <div class="field-track" data-track="fr2">
+        <div>
+          <div class="field-track-title">Recording Title</div>
+          <div class="field-track-meta">Location, 2023</div>
+        </div>
+        <button class="track-play" aria-label="Play"><svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg></button>
+      </div>
+      <div class="field-track" data-track="fr3">
+        <div>
+          <div class="field-track-title">Recording Title</div>
+          <div class="field-track-meta">Location, 2022</div>
+        </div>
+        <button class="track-play" aria-label="Play"><svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg></button>
+      </div>
+    </div>
+  </main>
+
+  <div class="player-bar" id="playerBar">
+    <span class="p-name" id="pName"></span>
+    <div class="p-progress-wrap"><div class="p-progress" id="pProgress"></div></div>
+    <span class="p-time" id="pTime">0:00</span>
+    <button class="p-close" id="pClose">&times;</button>
+  </div>
+
+  <footer>
+    <span>&copy; 2026 Alec Fellman</span>
+    <div class="footer-links">
+      <a href="https://www.discogs.com/artist/4347754-Alec-Fellman" target="_blank" rel="noopener">Discogs</a>
+      <a href="https://www.imdb.com/name/nm7677478/" target="_blank" rel="noopener">IMDb</a>
+      <a href="#" target="_blank" rel="noopener">Bandcamp</a>
+      <a href="#" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => { hamburger.classList.remove('open'); navLinks.classList.remove('open'); }); });
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: 0.12 });
+    document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+
+    const playerBar = document.getElementById('playerBar');
+    const pName = document.getElementById('pName');
+    const pProgress = document.getElementById('pProgress');
+    const pTime = document.getElementById('pTime');
+    const pClose = document.getElementById('pClose');
+    let currentAudio = null;
+    let currentTrack = null;
+
+    function formatTime(s) {
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60);
+      return m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+
+    document.querySelectorAll('.field-track').forEach(t => {
+      t.addEventListener('click', () => {
+        const src = t.dataset.src;
+        const title = t.querySelector('.field-track-title');
+        if (!src || !title) return;
+
+        if (currentTrack === t && currentAudio && !currentAudio.paused) {
+          currentAudio.pause();
+          return;
+        }
+
+        if (currentAudio) { currentAudio.pause(); }
+
+        currentAudio = new Audio(src);
+        currentTrack = t;
+        pName.textContent = title.textContent;
+        playerBar.classList.add('visible');
+        currentAudio.play();
+
+        currentAudio.addEventListener('timeupdate', () => {
+          if (currentAudio.duration) {
+            pProgress.style.width = (currentAudio.currentTime / currentAudio.duration * 100) + '%';
+            pTime.textContent = formatTime(currentAudio.currentTime);
+          }
+        });
+
+        currentAudio.addEventListener('ended', () => {
+          pProgress.style.width = '0%';
+          pTime.textContent = '0:00';
+        });
+      });
+    });
+
+    document.querySelector('.p-progress-wrap').addEventListener('click', (e) => {
+      if (currentAudio && currentAudio.duration) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        currentAudio.currentTime = pos * currentAudio.duration;
+      }
+    });
+
+    pClose.addEventListener('click', () => {
+      playerBar.classList.remove('visible');
+      if (currentAudio) { currentAudio.pause(); currentAudio = null; currentTrack = null; }
+    });
+  </script>
+
+</body>
+</html>

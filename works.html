@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Works — Alec Fellman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Karla:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-name">Alec Fellman</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="about.html">About</a></li>
+      <li><a href="works.html" class="active">Works</a></li>
+      <li><a href="listen.html">Listen</a></li>
+      <li><a href="field.html">Field Recordings</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-content">
+    <p class="section-nav-title fade">Works</p>
+    <div class="works-list fade">
+
+      <div class="work-entry">
+        <h3 class="work-artist">Ryuichi Sakamoto</h3>
+        <p class="work-role">Production Manager, Assistant Engineer, Recording Engineer (2010 to present)</p>
+        <p class="work-desc">Spanning albums, film scores, installations, and live performances, including the albums <em>async</em> and <em>12</em>, film scores <em>The Revenant</em> and <em>Minamata</em>, live performances at the Park Avenue Armory and <em>Ryuichi Sakamoto: Improvisation for Sonic Cure</em>, and the site-specific performance with Alva Noto at the Glass House.</p>
+      </div>
+
+      <div class="work-entry">
+        <h3 class="work-artist">Devont&eacute; Hynes / Blood Orange</h3>
+        <p class="work-role">Engineer, Composer's Assistant</p>
+        <p class="work-desc">Recording engineer for several songs on the album <em>Essex Honey</em> (2025). Composer's assistant on the BBC drama <em>The Listeners</em>, and the upcoming film <em>The Invite</em>.</p>
+      </div>
+
+      <div class="work-entry">
+        <h3 class="work-artist">Susie Ibarra</h3>
+        <p class="work-role">Engineer</p>
+        <p class="work-desc">Working with the Pulitzer Prize-winning composer and percussionist on her upcoming <em>CHAN</em> water opus project, part of a trilogy of works exploring landscapes, water rhythms, and kundiman love songs.</p>
+      </div>
+
+      <div class="work-entry">
+        <h3 class="work-artist">Yuri Shimojo</h3>
+        <p class="work-role">Sound Design, Collaborative Installation</p>
+        <p class="work-desc">Co-created <em>Memento Mori</em> (2021) with Yuri Shimojo and Maria Takeuchi at Praise Shadows Art Gallery, Boston. The installation featured 108 petri dishes with sakura petals, light projection, and a 108-minute soundscape exploring themes of life and death.</p>
+      </div>
+
+      <div class="work-entry">
+        <h3 class="work-artist">Dumb Type</h3>
+        <p class="work-role">Field Recordings</p>
+        <p class="work-desc">Contributed field recordings for <em>2022</em> at La Biennale di Venezia, <em>Playback 2022</em> at Der Kunst (Germany), and <em>2022: remap</em> at Artizon Museum (Tokyo, 2023).</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <span>&copy; 2026 Alec Fellman</span>
+    <div class="footer-links">
+      <a href="https://www.discogs.com/artist/4347754-Alec-Fellman" target="_blank" rel="noopener">Discogs</a>
+      <a href="https://www.imdb.com/name/nm7677478/" target="_blank" rel="noopener">IMDb</a>
+      <a href="#" target="_blank" rel="noopener">Bandcamp</a>
+      <a href="#" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => { hamburger.classList.remove('open'); navLinks.classList.remove('open'); }); });
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: 0.12 });
+    document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+  </script>
+
+</body>
+</html>

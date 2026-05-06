@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Alec Fellman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Karla:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-name">Alec Fellman</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="about.html">About</a></li>
+      <li><a href="works.html">Works</a></li>
+      <li><a href="listen.html">Listen</a></li>
+      <li><a href="field.html">Field Recordings</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-content">
+    <p class="section-nav-title fade">Contact</p>
+    <div class="contact-body fade">
+      <p>Open to collaboration, engineering projects, and conversation about sound.</p>
+      <a href="mailto:alecfellman@gmail.com" class="email-link">alecfellman@gmail.com</a>
+      <form class="contact-form" id="contactForm">
+        <div><label for="name">Name</label><input type="text" id="name" name="name" required autocomplete="name"></div>
+        <div><label for="email">Email</label><input type="email" id="email" name="email" required autocomplete="email"></div>
+        <div><label for="message">Message</label><textarea id="message" name="message" required></textarea></div>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <span>&copy; 2026 Alec Fellman</span>
+    <div class="footer-links">
+      <a href="https://www.discogs.com/artist/4347754-Alec-Fellman" target="_blank" rel="noopener">Discogs</a>
+      <a href="https://www.imdb.com/name/nm7677478/" target="_blank" rel="noopener">IMDb</a>
+      <a href="#" target="_blank" rel="noopener">Bandcamp</a>
+      <a href="#" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => { hamburger.classList.remove('open'); navLinks.classList.remove('open'); }); });
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: 0.12 });
+    document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      alert('This form needs a backend service (Formspree, Netlify Forms, etc.) to send messages.');
+    });
+  </script>
+
+</body>
+</html>
