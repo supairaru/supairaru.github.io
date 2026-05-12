@@ -94,7 +94,7 @@ nav {
 }
 
 /* ABOUT */
-.about-body { max-width: 560px; }
+.about-body { max-width: 560px; margin: 0 auto; text-align: center; }
 .about-body p { font-size: 1rem; line-height: 1.85; color: var(--fg-light); margin-bottom: 18px; }
 .about-body p strong { color: var(--fg); font-weight: 400; }
 
