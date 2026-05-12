@@ -55,7 +55,7 @@ nav {
 
 /* PAGE CONTENT */
 .page-content {
-  padding: 40px var(--pad) 100px;
+  padding: 40px var(--pad) 60px;
   max-width: 900px;
   margin: 0 auto;
   min-height: calc(100vh - 120px);
@@ -266,7 +266,7 @@ footer {
   position: fixed; bottom: 0; left: 0; right: 0;
   padding: 12px var(--pad) 16px;
   display: flex; justify-content: space-between; align-items: center;
-  font-size: 0.75rem; color: var(--fg-muted); border-top: 1px solid #eee;
+  font-size: 0.75rem; color: var(--fg-muted); border-bottom: 1px solid #eee;
   background: var(--bg);
   z-index: 50;
 }
