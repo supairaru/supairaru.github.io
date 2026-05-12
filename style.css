@@ -263,9 +263,9 @@ nav {
 
 /* FOOTER */
 footer {
-  padding: 40px var(--pad) 48px;
+  padding: 12px var(--pad) 16px;
   display: flex; justify-content: space-between; align-items: center;
-  font-size: 0.75rem; color: var(--fg-muted); border-top: 1px solid #eee; margin-top: 40px;
+  font-size: 0.75rem; color: var(--fg-muted); border-bottom: 1px solid #eee; margin-top: 12px;
 }
 .footer-links { display: flex; gap: 20px; }
 .footer-links a { color: var(--fg-muted); transition: color 0.2s; }
